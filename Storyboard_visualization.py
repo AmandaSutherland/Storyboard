@@ -3,8 +3,8 @@
 #Software Design - Fall 2015
 #This script will import a Project Gutenberg book and do ____
 from pattern.web import*
-import nltk
-from nltk import*
+# import nltk
+# from nltk import*
 import re
 import pprint
 
@@ -23,16 +23,23 @@ def delete_introduction(Peter_Pan_full_text):
 	print'headers are gone'
 	return Peter_Pan_full_text
 
+def find_chapter(Peter_Pan_full_text):
+#finds the chapter titles in the book 
+	indices = [m.start() for m in re.finditer('Chapter', Peter_Pan_full_text)]
+	for i in range(17):
+		m = Peter_Pan_full_text[indices[i]:indices[i]+len("Chapter xxx")]
+		print m 
+
 #def chapter_split():
 #divides the book by chapters so we know where we are
 	
-def parts_of_speech(Peter_Pan_full_text):
-#tags all words (probably bad!) with their parts of speech 
-#comes from nltk
-	full_text_parts_speech = word_tokenize(Peter_Pan_full_text)
-	nltk.pos_tag(full_text_parts_speech)
-	print'text tagged!'
-	return full_text_parts_speech
+# def parts_of_speech(Peter_Pan_full_text):
+# #tags all words (probably bad!) with their parts of speech 
+# #comes from nltk
+# 	full_text_parts_speech = word_tokenize(Peter_Pan_full_text)
+# 	nltk.pos_tag(full_text_parts_speech)
+# 	print'text tagged!'
+# 	return full_text_parts_speech
 
 
 #def find_common_nouns():
@@ -43,5 +50,5 @@ def parts_of_speech(Peter_Pan_full_text):
 
 Peter_Pan_full_text = get_book()  
 delete_introduction(Peter_Pan_full_text)
-parts_of_speech(Peter_Pan_full_text)
-
+# parts_of_speech(Peter_Pan_full_text)
+find_chapter(Peter_Pan_full_text)
