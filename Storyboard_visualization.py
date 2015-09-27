@@ -5,7 +5,7 @@
 from pattern.web import*
 from pattern.en import parse
 import nltk
-# from nltk import*
+from nltk import tokenize
 from nltk.tokenize import word_tokenize
 import re
 import pprint
@@ -56,8 +56,9 @@ def parts_of_speech(Peter_Pan_full_text):
 #tags all words (probably bad!) with their parts of speech 
 #comes from nltk
 	full_text_parts_speech = word_tokenize(Peter_Pan_full_text)
-	nltk.pos_tag(full_text_parts_speech)
+	Peter_Pan_parsed_nltk = nltk.pos_tag(full_text_parts_speech)
 	print'text tagged!'
+	# print Peter_Pan_parsed_nltk
 	return full_text_parts_speech
 
 # def parts_of_speech(Peter_Pan_full_text):
@@ -66,11 +67,11 @@ def parts_of_speech(Peter_Pan_full_text):
 # 	return Peter_Pan_parsed
 
 
-#def find_common_nouns():
-# finds the most common nouns in the book
-	# wsj = nltk.corpus.treebank.tagged_words(tagset='universal')
-	# word_tag_fd = nltk.FreqDist(wsj)
-	# [wt[0] for (wt, _) in word_tag_fd.most_common() if wt[1] == 'NOUN']
+# def find_common_nouns():
+# # finds the most common nouns in the book and gives them in order of frequency
+# 	wsj = nltk.corpus.treebank.tagged_words(tagset='universal')
+# 	word_tag_fd = nltk.FreqDist(wsj)
+# 	[wt[0] for (wt, _) in word_tag_fd.most_common() if wt[1] == 'NOUN']
 
 Peter_Pan_full_text = get_book()  
 delete_introduction(Peter_Pan_full_text)
