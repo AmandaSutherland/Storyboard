@@ -14,7 +14,7 @@ import pprint
 def get_book():
 # this function downloads the book
 	#Peter_Pan_full_text = URL('http://www.gutenberg.org/cache/epub/16/pg16.txt').download()
-	textfile = open("test_text.txt")
+	textfile = open("Peter_Pan_direct_text.txt")
 	Peter_Pan_full_text = textfile.read()
 	print'got book!'
 	return Peter_Pan_full_text
@@ -27,12 +27,12 @@ def delete_introduction(Peter_Pan_full_text):
 	# print Peter_Pan_full_text
 	return Peter_Pan_full_text
 
-# def find_chapter(Peter_Pan_full_text):
-# #finds the chapter titles in the book 
-# 	indices = [m.start() for m in re.finditer('Chapter', Peter_Pan_full_text)]
-# 	for i in range(17):
-# 		m = Peter_Pan_full_text[indices[i]:indices[i]+len("Chapter xx")] 
-# 		# print m 
+def find_chapter(Peter_Pan_full_text):
+#finds the chapter titles in the book 
+	indices = [m.start() for m in re.finditer('Chapter', Peter_Pan_full_text)]
+	for i in range(17):
+		m = Peter_Pan_full_text[indices[i]:indices[i]+len("Chapter xx")] 
+		# print m 
 
 # def find_chapter_fullname(Peter_Pan_full_text):
 # #finds the full chapter names
@@ -45,12 +45,13 @@ def delete_introduction(Peter_Pan_full_text):
 # 		    	break
 # 		print n
 	
-# def chapter_split(Peter_Pan_full_text):
-# # divides the book by chapters so we know where we are
-# 	chapters = Peter_Pan_full_text.split('Chapter')
-# 	print'split into chapters!'
-# 	print chapters
-# 	return chapters
+def chapter_split(Peter_Pan_full_text):
+# divides the book by chapters so we know where we are
+	for i in range(17):
+		chapter[i] = Peter_Pan_full_text.split('Chapter')
+	print'split into chapters!'
+	print chapter[1]
+	# return chapter[i]
 
 	
 def parts_of_speech(Peter_Pan_full_text):
@@ -82,7 +83,7 @@ def find_common_nouns(parsed_text):
 Peter_Pan_full_text = get_book()
 delete_introduction(Peter_Pan_full_text)
 POS = parts_of_speech(Peter_Pan_full_text)
-# find_chapter(Peter_Pan_full_text)
+find_chapter(Peter_Pan_full_text)
 # find_chapter_fullname(Peter_Pan_full_text)
-# chapter_split(Peter_Pan_full_text)
+chapter_split(Peter_Pan_full_text)
 find_common_nouns(POS)
