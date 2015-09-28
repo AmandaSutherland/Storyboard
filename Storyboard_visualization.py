@@ -6,6 +6,7 @@ from pattern.web import*
 from pattern.en import parse
 import nltk
 from nltk import tokenize
+from nltk.probability import ConditionalFreqDist
 from nltk.tokenize import word_tokenize
 import re
 import pprint
@@ -13,7 +14,7 @@ import pprint
 def get_book():
 # this function downloads the book
 	#Peter_Pan_full_text = URL('http://www.gutenberg.org/cache/epub/16/pg16.txt').download()
-	textfile = open("Peter_Pan_direct_text.txt")
+	textfile = open("test_text.txt")
 	Peter_Pan_full_text = textfile.read()
 	print'got book!'
 	return Peter_Pan_full_text
@@ -59,23 +60,29 @@ def parts_of_speech(Peter_Pan_full_text):
 	Peter_Pan_parsed_nltk = nltk.pos_tag(full_text_parts_speech)
 	print'text tagged!'
 	# print Peter_Pan_parsed_nltk
-	return full_text_parts_speech
+	return Peter_Pan_parsed_nltk
 
 # def parts_of_speech(Peter_Pan_full_text):
 # 	Peter_Pan_parsed = parse(Peter_Pan_full_text, relations=True, lemmata=True)
 # 	print Peter_Pan_parsed
 # 	return Peter_Pan_parsed
 
+def find_common_nouns(parsed_text):
+# finds the 5 most common nouns in the book and gives them in order of frequency
+#most common of three types: NNS, NN, NNP
 
-# def find_common_nouns():
-# # finds the most common nouns in the book and gives them in order of frequency
-# 	wsj = nltk.corpus.treebank.tagged_words(tagset='universal')
-# 	word_tag_fd = nltk.FreqDist(wsj)
-# 	[wt[0] for (wt, _) in word_tag_fd.most_common() if wt[1] == 'NOUN']
+	cfd = nltk.ConditionalFreqDist((tag, word) for (word, tag) in parsed_text
+	                                  if tag.startswith('NN'))
+	common_nouns = dict((tag, cfd[tag].most_common(5)) for tag in cfd.conditions())
+	
+	print common_nouns
+	print 'found common nouns'
+	return common_nouns
 
-Peter_Pan_full_text = get_book()  
+Peter_Pan_full_text = get_book()
 delete_introduction(Peter_Pan_full_text)
-parts_of_speech(Peter_Pan_full_text)
+POS = parts_of_speech(Peter_Pan_full_text)
 # find_chapter(Peter_Pan_full_text)
 # find_chapter_fullname(Peter_Pan_full_text)
 # chapter_split(Peter_Pan_full_text)
+find_common_nouns(POS)
