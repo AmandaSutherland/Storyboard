@@ -47,11 +47,10 @@ def find_chapter(Peter_Pan_full_text):
 	
 def chapter_split(Peter_Pan_full_text):
 # divides the book by chapters so we know where we are
-	for i in range(17):
-		chapter[i] = Peter_Pan_full_text.split('Chapter')
+	chapter = Peter_Pan_full_text.split('Chapter')
 	print'split into chapters!'
-	print chapter[1]
-	# return chapter[i]
+	print chapter
+	return chapter
 
 	
 def parts_of_speech(Peter_Pan_full_text):
